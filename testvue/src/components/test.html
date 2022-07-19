@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function VueComponent() { }
+        // VueComponent.prototype.$options = {
+        //     data: { name: 'three' }
+        // }
+        // let vc1 = new VueComponent();
+        // vc1.$options.data.name = 'six'; // 将vc1实例上的data修改为six
+        // let vc2 = new VueComponent(); // 在new一个新的实例vc2
+        // console.log(vc2.$options.data.name);
+        // // 输出vc2的data的值是six，这时候发现vc2中的data也被修改了，他们data相互影响
+
+        // 这样就可以保证每个组件调用data返回一个全新的对象，和外部没有关系
+        function VueComponent() { }
+        VueComponent.prototype.$options = {
+            data: () => ({ name: 'three' })
+        }
+        let vc1 = new VueComponent();
+        let objData = vc1.$options.data()
+        objData.name = 'six'; // 调用data方法会返回一个对象，用这个对象作为它的属性
+        console.log(objData)
+        let vc2 = new VueComponent();
+        console.log(vc2.$options.data());
+    </script>
+</body>
+
+</html>
